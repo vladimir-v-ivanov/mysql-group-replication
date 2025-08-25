@@ -1,4 +1,5 @@
 [mysqld]
 loose-server_id=2
 loose-group_replication_local_address="mysql2:33061"
-loose-group_replication_bootstrap_group=off
+report_host=mysql2
+report_port=3306

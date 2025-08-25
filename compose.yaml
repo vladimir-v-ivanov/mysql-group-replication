@@ -1,17 +1,19 @@
 name: mysql-group-replication
-version: "1.0"
 services:
   mysql1:
     image: mysql:8.4
+    container_name: mysql1
     ports:
-      - 3301:3306
+      - "3301:3306"
     volumes:
       - mysql1:/var/lib/mysql
       - ./gr-common.cnf:/etc/mysql/conf.d/gr-common.cnf:ro
       - ./gr-node1.cnf:/etc/mysql/conf.d/gr-node1.cnf:ro
     environment:
       MYSQL_ROOT_PASSWORD: password
-    networks: [ group-replication ]
+    networks:
+      - group-replication
+    restart: unless-stopped
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-ppassword" ]
       interval: 10s
@@ -22,15 +24,18 @@ services:
 
   mysql2:
     image: mysql:8.4
+    container_name: mysql2
     ports:
-      - 3302:3306
+      - "3302:3306"
     volumes:
       - mysql2:/var/lib/mysql
       - ./gr-common.cnf:/etc/mysql/conf.d/gr-common.cnf:ro
       - ./gr-node2.cnf:/etc/mysql/conf.d/gr-node2.cnf:ro
     environment:
       MYSQL_ROOT_PASSWORD: password
-    networks: [ group-replication ]
+    networks:
+      - group-replication
+    restart: unless-stopped
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-ppassword" ]
       interval: 10s
@@ -41,15 +46,18 @@ services:
 
   mysql3:
     image: mysql:8.4
+    container_name: mysql3
     ports:
-      - 3303:3306
+      - "3303:3306"
     volumes:
       - mysql3:/var/lib/mysql
       - ./gr-common.cnf:/etc/mysql/conf.d/gr-common.cnf:ro
       - ./gr-node3.cnf:/etc/mysql/conf.d/gr-node3.cnf:ro
     environment:
       MYSQL_ROOT_PASSWORD: password
-    networks: [ group-replication ]
+    networks:
+      - group-replication
+    restart: unless-stopped
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-ppassword" ]
       interval: 10s
@@ -60,15 +68,18 @@ services:
 
   mysql4:
     image: mysql:8.4
+    container_name: mysql4
     ports:
-      - 3304:3306
+      - "3304:3306"
     volumes:
       - mysql4:/var/lib/mysql
       - ./gr-common.cnf:/etc/mysql/conf.d/gr-common.cnf:ro
       - ./gr-node4.cnf:/etc/mysql/conf.d/gr-node4.cnf:ro
     environment:
       MYSQL_ROOT_PASSWORD: password
-    networks: [ group-replication ]
+    networks:
+      - group-replication
+    restart: unless-stopped
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-ppassword" ]
       interval: 10s
@@ -79,15 +90,18 @@ services:
 
   mysql5:
     image: mysql:8.4
+    container_name: mysql5
     ports:
-      - 3305:3306
+      - "3305:3306"
     volumes:
       - mysql5:/var/lib/mysql
       - ./gr-common.cnf:/etc/mysql/conf.d/gr-common.cnf:ro
       - ./gr-node5.cnf:/etc/mysql/conf.d/gr-node5.cnf:ro
     environment:
       MYSQL_ROOT_PASSWORD: password
-    networks: [ group-replication ]
+    networks:
+      - group-replication
+    restart: unless-stopped
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-ppassword" ]
       interval: 10s
@@ -102,7 +116,9 @@ volumes:
   mysql3:
   mysql4:
   mysql5:
+  router_data:
 
 networks:
   group-replication:
     driver: bridge
+    name: group-replication

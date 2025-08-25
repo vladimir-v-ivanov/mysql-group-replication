@@ -1,0 +1,22 @@
+name: mysql-router
+services:
+  router:
+    image: container-registry.oracle.com/mysql/community-router:8.4
+    container_name: router
+    ports:
+      - "6446:6446" # read-write
+      - "6447:6447" # read-only
+    restart: unless-stopped
+    networks:
+      - group-replication
+    environment:
+      MYSQL_HOST: mysql1
+      MYSQL_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_CREATE_ROUTER_USER: 0
+
+networks:
+  group-replication:
+    external: true
+
