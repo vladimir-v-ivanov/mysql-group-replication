@@ -1,0 +1,8 @@
+[mysqld]
+loose-disabled_storage_engines="MyISAM,BLACKHOLE,FEDERATED,ARCHIVE,MEMORY"
+loose-gtid_mode=ON
+loose-enforce_gtid_consistency=ON
+loose-plugin_load_add='group_replication.so'
+loose-group_replication_group_name="aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+loose-group_replication_start_on_boot=off
+loose-group_replication_group_seeds="mysql1:33061,mysql2:33061,mysql3:33061,mysql4:33061,mysql5:33061"

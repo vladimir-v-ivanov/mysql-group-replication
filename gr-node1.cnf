@@ -1,0 +1,4 @@
+[mysqld]
+loose-server_id=1
+loose-group_replication_local_address="mysql1:33061"
+loose-group_replication_bootstrap_group=off
